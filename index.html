@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JLC News</title>
+    <style>
+        /* General Reset */
+        body, h1, h2, h3, p, ul, li, a, button {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        ul {
+            list-style: none;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            z-index: 1000;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .nav-links a, .dropdown-btn {
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .nav-links a:hover, .dropdown-btn:hover {
+            background-color: #575757;
+        }
+        .dropdown {
+            position: relative;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #444;
+            padding: 10px;
+            border-radius: 5px;
+            width: 200px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .dropdown-content {
+            right: 0;
+            left: auto;
+        }
+        @media (max-width: 768px) {
+            .dropdown-content {
+                left: 0;
+                right: auto;
+            }
+        }
+
+        /* Main Content */
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 20px;
+            min-height: 80vh;
+        }
+        .main-content {
+            flex: 2;
+            padding: 15px;
+        }
+        .post {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .post img {
+            width: 100%;
+            height: auto;
+        }
+        .post-content {
+            padding: 15px;
+        }
+        .post-title {
+            font-size: 1.25em;
+            margin-bottom: 10px;
+        }
+        .post-meta {
+            font-size: 0.9em;
+            color: gray;
+            margin-bottom: 15px;
+        }
+        .read-more {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .read-more:hover {
+            background-color: #575757;
+        }
+
+        .sidebar {
+            flex: 1;
+            padding: 15px;
+        }
+        .search-box {
+            margin-bottom: 20px;
+            display: flex;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px 0 0 5px;
+        }
+        .search-box button {
+            padding: 10px;
+            border: none;
+            background-color: #333;
+            color: white;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+        }
+        .search-box button:hover {
+            background-color: #575757;
+        }
+        .latest-posts {
+            margin-top: 20px;
+        }
+        .latest-posts h3 {
+            margin-bottom: 10px;
+        }
+        .latest-posts a {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+        .pagination a {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .pagination a:hover {
+            background-color: #ddd;
+        }
+
+               /* Footer */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            background-color: #333;
+            color: white;
+            position: relative;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        footer div {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        footer a {
+            color: white;
+            margin-left: 0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        footer a:hover {
+            background-color: #575757;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            footer {
+                text-align: center;
+                flex-direction: column;
+                gap: 10px;
+            }
+            footer div {
+                justify-content: center;
+            }
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header, footer {
+                flex-wrap: wrap;
+                text-align: center;
+            }
+            .nav-links {
+                flex-direction: column;
+                gap: 5px;
+            }
+            .container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">JLC News</div>
+    <nav>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Jobs</a>
+            <a href="#">Admit Card</a>
+            <a href="#">Result</a>
+            <a href="#">Answer Key</a>
+            <div class="dropdown">
+                <div class="dropdown-btn">More</div>
+                <div class="dropdown-content">
+                    <a href="#">About Us</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="main-content">
+        <div class="post">
+            <img src="https://via.placeholder.com/800x400" alt="Post Image">
+            <div class="post-content">
+                <div class="post-title">Post Title 1</div>
+                <div class="post-meta">Date: 2025-01-19 | Author: Syed Ismail</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit...</p>
+                <a href="#" class="read-more" rel="nofollow">Read More</a>
+            </div>
+        </div>
+
+        <!-- Repeat similar post blocks -->
+
+        <div class="pagination">
+            <a href="#">1</a>
+            <a href="#">2</a>
+            <a href="#">3</a>
+            <a href="#">Next</a>
+        </div>
+    </div>
+
+    <aside class="sidebar">
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <button>Search</button>
+        </div>
+
+        <div class="latest-posts">
+            <h3>Latest Posts</h3>
+            <a href="#">Latest Post 1</a>
+            <a href="#">Latest Post 2</a>
+            <a href="#">Latest Post 3</a>
+            <a href="#">Latest Post 4</a>
+            <a href="#">Latest Post 5</a>
+        </div>
+    </aside>
+</div>
+
+<footer>
+    <div>&copy; 2025 JLC News</div>
+    <div>
+        <a href="#">Fact Check</a>
+        <a href="#">About Us</a>
+        <a href="#">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Disclaimer</a>
+    </div>
+</footer>
+
+</body>
+</html>
