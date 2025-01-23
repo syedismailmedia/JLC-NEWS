@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HTML Preserving Translator</title>
-    <script src="https://unpkg.com/html-react-parser@5.0.11/dist/html-react-parser.min.js"></script>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
     <div id="root"></div>
-    <script>const { useState, useEffect } = React
+    <script>
+        const { useState, useEffect } = React
 
 const languages = [
   { code: "hi", name: "Hindi" },
@@ -22,74 +23,103 @@ const languages = [
 ]
 
 function Translator() {
-  const [inputText, setInputText] = useState("")
+  const [inputHtml, setInputHtml] = useState("")
   const [targetLang, setTargetLang] = useState("hi")
   const [translatedHtml, setTranslatedHtml] = useState("")
 
+  const translateHtml = async (html) => {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(html, "text/html")
+    const elements = doc.body.getElementsByTagName("*")
+
+    for (const element of elements) {
+      if (element.childNodes.length === 1 && element.childNodes[0].nodeType === Node.TEXT_NODE) {
+        const text = element.textContent.trim()
+        if (text) {
+          try {
+            const response = await fetch(
+              `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=en|${targetLang}`,
+            )
+            const data = await response.json()
+            if (data.responseStatus === 200) {
+              element.textContent = data.responseData.translatedText
+            }
+          } catch (error) {
+            console.error("Translation error:", error)
+          }
+        }
+      }
+    }
+
+    return doc.body.innerHTML
+  }
+
   const handleTranslate = async () => {
     try {
-      const response = await fetch(
-        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(inputText)}&langpair=en|${targetLang}`,
-      )
-      const data = await response.json()
-      if (data.responseStatus === 200) {
-        setTranslatedHtml(data.responseData.translatedText)
-      } else {
-        throw new Error(data.responseDetails)
-      }
+      const translated = await translateHtml(inputHtml)
+      setTranslatedHtml(translated)
     } catch (error) {
       console.error("Translation error:", error)
       setTranslatedHtml("An error occurred during translation.")
     }
   }
 
-  return React.createElement(
-    "div",
-    { className: "max-w-2xl mx-auto p-4" },
-    React.createElement("h1", { className: "text-2xl font-bold mb-4" }, "HTML Preserving Translator"),
-    React.createElement("textarea", {
-      value: inputText,
-      onChange: (e) => setInputText(e.target.value),
-      placeholder: "Paste your text or HTML here...",
-      className: "w-full p-2 border rounded mb-4",
-      rows: 6,
-    }),
-    React.createElement(
-      "div",
-      { className: "flex gap-4 mb-4" },
-      React.createElement(
-        "select",
-        {
-          value: targetLang,
-          onChange: (e) => setTargetLang(e.target.value),
-          className: "p-2 border rounded",
-        },
-        languages.map((lang) => React.createElement("option", { key: lang.code, value: lang.code }, lang.name)),
-      ),
-      React.createElement(
-        "button",
-        {
-          onClick: handleTranslate,
-          className: "bg-blue-500 text-white px-4 py-2 rounded",
-        },
-        "Translate",
-      ),
-    ),
-    React.createElement(
-      "div",
-      { className: "border p-4 rounded-md bg-white" },
-      React.createElement("h2", { className: "text-xl font-semibold mb-2" }, "Translated Content:"),
-      React.createElement("div", {
-        className: "translated-content",
-        dangerouslySetInnerHTML: { __html: translatedHtml },
-      }),
-    ),
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(translatedHtml).then(
+      () => {
+        alert("Translated HTML copied to clipboard!")
+      },
+      (err) => {
+        console.error("Could not copy text: ", err)
+      },
+    )
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">HTML Preserving Translator</h1>
+      <textarea
+        value={inputHtml}
+        onChange={(e) => setInputHtml(e.target.value)}
+        placeholder="Paste your HTML here..."
+        className="w-full p-2 border rounded mb-4 font-mono text-sm"
+        rows={10}
+      />
+      <div className="flex gap-4 mb-4">
+        <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)} className="p-2 border rounded">
+          {languages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.name}
+            </option>
+          ))}
+        </select>
+        <button onClick={handleTranslate} className="bg-blue-500 text-white px-4 py-2 rounded">
+          Translate
+        </button>
+      </div>
+      {translatedHtml && (
+        <div className="border p-4 rounded-md bg-white">
+          <h2 className="text-xl font-semibold mb-2">Translated HTML:</h2>
+          <pre className="bg-gray-100 p-2 rounded overflow-x-auto">{translatedHtml}</pre>
+          <button onClick={copyToClipboard} className="mt-4 bg-green-500 text-white px-4 py-2 rounded">
+            Copy Translated HTML
+          </button>
+        </div>
+      )}
+      {translatedHtml && (
+        <div className="mt-4 border p-4 rounded-md bg-white">
+          <h2 className="text-xl font-semibold mb-2">Preview:</h2>
+          <div dangerouslySetInnerHTML={{ __html: translatedHtml }} />
+        </div>
+      )}
+    </div>
   )
 }
 
-ReactDOM.render(React.createElement(Translator), document.getElementById("root"))
+ReactDOM.render(<Translator />, document.getElementById("root"))
 
-</script>
+
+    </script>
 </body>
 </html>
 
