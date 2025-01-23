@@ -3,328 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JLC News</title>
+    <title>Multi-Language Form Translator</title>
     <style>
-        /* General Reset */
-        body, h1, h2, h3, p, ul, li, a, button {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-        ul {
-            list-style: none;
-        }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            position: relative;
-            z-index: 1000;
-        }
-        .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-        }
-        nav {
-            display: flex;
-            align-items: center;
-        }
-        .nav-links {
-            display: flex;
-            gap: 15px;
-        }
-        .nav-links a, .dropdown-btn {
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .nav-links a:hover, .dropdown-btn:hover {
-            background-color: #575757;
-        }
-        .dropdown {
-            position: relative;
-        }
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background-color: #444;
-            padding: 10px;
-            border-radius: 5px;
-            width: 200px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        .dropdown-content a {
-            display: block;
-            margin-bottom: 5px;
-            color: white;
-        }
-        .dropdown-content a:hover {
-            background-color: #575757;
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-        .dropdown-content {
-            right: 0;
-            left: auto;
-        }
-        @media (max-width: 768px) {
-            .dropdown-content {
-                left: 0;
-                right: auto;
-            }
-        }
-
-        /* Main Content */
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            margin: 20px;
-            min-height: 80vh;
-        }
-        .main-content {
-            flex: 2;
-            padding: 15px;
-        }
-        .post {
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-        .post img {
-            width: 100%;
-            height: auto;
-        }
-        .post-content {
-            padding: 15px;
-        }
-        .post-title {
-            font-size: 1.25em;
-            margin-bottom: 10px;
-        }
-        .post-meta {
-            font-size: 0.9em;
-            color: gray;
-            margin-bottom: 15px;
-        }
-        .read-more {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: #333;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .read-more:hover {
-            background-color: #575757;
-        }
-
-        .sidebar {
-            flex: 1;
-            padding: 15px;
-        }
-        .search-box {
-            margin-bottom: 20px;
-            display: flex;
-        }
-        .search-box input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px 0 0 5px;
-        }
-        .search-box button {
-            padding: 10px;
-            border: none;
-            background-color: #333;
-            color: white;
-            border-radius: 0 5px 5px 0;
-            cursor: pointer;
-        }
-        .search-box button:hover {
-            background-color: #575757;
-        }
-        .latest-posts {
-            margin-top: 20px;
-        }
-        .latest-posts h3 {
-            margin-bottom: 10px;
-        }
-        .latest-posts a {
-            display: block;
-            margin-bottom: 5px;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
             color: #333;
         }
 
-        /* Pagination */
-        .pagination {
+        h1 {
+            text-align: center;
+            color: #0078D7;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Input Group */
+        .input-group {
             display: flex;
             justify-content: center;
-            margin-top: 20px;
-            gap: 5px;
-        }
-        .pagination a {
-            padding: 5px 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            color: #333;
-            transition: background-color 0.3s;
-        }
-        .pagination a:hover {
-            background-color: #ddd;
-        }
-
-               /* Footer */
-        footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            position: relative;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        footer div {
-            display: flex;
-            flex-wrap: wrap;
             gap: 10px;
+            margin: 20px 0;
         }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0078D7;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #005bb5;
+        }
+
+        /* Preview Container */
+        .preview-container {
+            padding: 20px;
+            background: #f3f3f3;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 10px;
+            background: #0078D7;
+            color: #fff;
+        }
+
         footer a {
-            color: white;
-            margin-left: 0;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        footer a:hover {
-            background-color: #575757;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            footer {
-                text-align: center;
-                flex-direction: column;
-                gap: 10px;
-            }
-            footer div {
-                justify-content: center;
-            }
-        }
-
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header, footer {
-                flex-wrap: wrap;
-                text-align: center;
-            }
-            .nav-links {
-                flex-direction: column;
-                gap: 5px;
-            }
-            .container {
-                flex-direction: column;
-            }
+            color: #fff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-
-<header>
-    <div class="logo">JLC News</div>
-    <nav>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Jobs</a>
-            <a href="#">Admit Card</a>
-            <a href="#">Result</a>
-            <a href="#">Answer Key</a>
-            <div class="dropdown">
-                <div class="dropdown-btn">More</div>
-                <div class="dropdown-content">
-                    <a href="#">About Us</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Disclaimer</a>
-                </div>
-            </div>
+    <div class="container">
+        <h1>🌐 Multi-Language Form Translator</h1>
+        <p>Translate forms from any URL into the language of your choice.</p>
+        
+        <div class="input-group">
+            <input type="text" id="formUrl" placeholder="Enter the form URL" />
+            <select id="targetLanguage">
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+            </select>
         </div>
-    </nav>
-</header>
-
-<div class="container">
-    <div class="main-content">
-        <div class="post">
-            <img src="https://via.placeholder.com/800x400" alt="Post Image">
-            <div class="post-content">
-                <div class="post-title">Post Title 1</div>
-                <div class="post-meta">Date: 2025-01-19 | Author: Syed Ismail</div>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit...</p>
-                <a href="#" class="read-more" rel="nofollow">Read More</a>
-            </div>
-        </div>
-
-        <!-- Repeat similar post blocks -->
-
-        <div class="pagination">
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">Next</a>
-        </div>
+        <button id="translateBtn" class="btn">Translate Form</button>
+        
+        <div id="formPreview" class="preview-container"></div>
+        
+        <button id="downloadBtn" class="btn" style="display: none;">Download Translated Form</button>
     </div>
+    <footer>
+        <p>Powered by <a href="https://libretranslate.com/" target="_blank">LibreTranslate API</a></p>
+    </footer>
+    <script>
+        const translateBtn = document.getElementById("translateBtn");
+        const formPreview = document.getElementById("formPreview");
+        const downloadBtn = document.getElementById("downloadBtn");
 
-    <aside class="sidebar">
-        <div class="search-box">
-            <input type="text" placeholder="Search...">
-            <button>Search</button>
-        </div>
+        translateBtn.addEventListener("click", async () => {
+            const url = document.getElementById("formUrl").value;
+            const targetLang = document.getElementById("targetLanguage").value;
 
-        <div class="latest-posts">
-            <h3>Latest Posts</h3>
-            <a href="#">Latest Post 1</a>
-            <a href="#">Latest Post 2</a>
-            <a href="#">Latest Post 3</a>
-            <a href="#">Latest Post 4</a>
-            <a href="#">Latest Post 5</a>
-        </div>
-    </aside>
-</div>
+            if (!url) {
+                alert("Please enter a valid URL");
+                return;
+            }
 
-<footer>
-    <div>&copy; 2025 JLC News</div>
-    <div>
-        <a href="#">Fact Check</a>
-        <a href="#">About Us</a>
-        <a href="#">Contact Us</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Disclaimer</a>
-    </div>
-</footer>
+            try {
+                // Fetch the form HTML
+                const response = await fetch(url);
+                const html = await response.text();
 
+                // Parse the form
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                const form = doc.querySelector("form");
+
+                if (!form) {
+                    alert("No form found on the provided URL.");
+                    return;
+                }
+
+                // Translate form content
+                const labels = form.querySelectorAll("label");
+                const placeholders = form.querySelectorAll("input, textarea");
+
+                for (const label of labels) {
+                    label.innerText = await translateText(label.innerText, targetLang);
+                }
+
+                for (const field of placeholders) {
+                    if (field.placeholder) {
+                        field.placeholder = await translateText(field.placeholder, targetLang);
+                    }
+                }
+
+                // Display the translated form
+                formPreview.innerHTML = "";
+                formPreview.appendChild(form);
+                downloadBtn.style.display = "block";
+
+                // Enable download
+                downloadBtn.addEventListener("click", () => {
+                    const blob = new Blob([form.outerHTML], { type: "text/html" });
+                    const link = document.createElement("a");
+                    link.href = URL.createObjectURL(blob);
+                    link.download = "translated-form.html";
+                    link.click();
+                });
+            } catch (error) {
+                console.error("Error fetching or translating the form:", error);
+                alert("Failed to translate the form. Please try again.");
+            }
+        });
+
+        async function translateText(text, targetLang) {
+            const response = await fetch("https://libretranslate.com/translate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    q: text,
+                    source: "auto",
+                    target: targetLang,
+                    format: "text"
+                }),
+            });
+            const data = await response.json();
+            return data.translatedText;
+        }
+    </script>
 </body>
 </html>
