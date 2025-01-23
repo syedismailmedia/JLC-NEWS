@@ -3,158 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text Translator to HTML</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
-        }
-
-        h1 {
-            text-align: center;
-            color: #007BFF;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        select, button {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        select {
-            margin-right: 10px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .output-container {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f9f9f9;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        pre {
-            background: #e8e8e8;
-            padding: 10px;
-            border-radius: 4px;
-            overflow-x: auto;
-        }
-    </style>
+    <title>HTML Preserving Translator</title>
+    <script src="https://unpkg.com/html-react-parser@5.0.11/dist/html-react-parser.min.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <div class="container">
-        <h1>📝 Text Translator to HTML</h1>
-        <p>Enter text below, choose the target language, and get the translated output as HTML.</p>
-        <textarea id="inputText" placeholder="Paste your text here..."></textarea>
-        <div>
-            <select id="targetLanguage">
-                <option value="en">English</option>
-                <option value="hi">Hindi</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-            </select>
-            <button id="translateBtn">Translate to HTML</button>
-        </div>
-        <div id="outputContainer" class="output-container" style="display: none;">
-            <h2>Translated HTML Output:</h2>
-            <pre id="translatedHtml"></pre>
-        </div>
-    </div>
-    <script>
-        const translateBtn = document.getElementById('translateBtn');
-        const outputContainer = document.getElementById('outputContainer');
-        const translatedHtml = document.getElementById('translatedHtml');
+<body class="bg-gray-100">
+    <div id="root"></div>
+    <script>const { useState, useEffect } = React
 
-        translateBtn.addEventListener('click', async () => {
-            const inputText = document.getElementById('inputText').value.trim();
-            const targetLang = document.getElementById('targetLanguage').value;
+const languages = [
+  { code: "hi", name: "Hindi" },
+  { code: "es", name: "Spanish" },
+  { code: "fr", name: "French" },
+  { code: "de", name: "German" },
+  { code: "it", name: "Italian" },
+]
 
-            if (!inputText) {
-                alert('Please enter some text to translate.');
-                return;
-            }
+function Translator() {
+  const [inputText, setInputText] = useState("")
+  const [targetLang, setTargetLang] = useState("hi")
+  const [translatedHtml, setTranslatedHtml] = useState("")
 
-            try {
-                const lines = inputText.split('\n').filter(line => line.trim() !== '');
-                let htmlOutput = '';
+  const handleTranslate = async () => {
+    try {
+      const response = await fetch(
+        `https://api.mymemory.translated.net/get?q=${encodeURIComponent(inputText)}&langpair=en|${targetLang}`,
+      )
+      const data = await response.json()
+      if (data.responseStatus === 200) {
+        setTranslatedHtml(data.responseData.translatedText)
+      } else {
+        throw new Error(data.responseDetails)
+      }
+    } catch (error) {
+      console.error("Translation error:", error)
+      setTranslatedHtml("An error occurred during translation.")
+    }
+  }
 
-                for (const line of lines) {
-                    const tag = detectTag(line);
-                    const translatedText = await translateText(line, targetLang);
-                    htmlOutput += `<${tag}>${translatedText}</${tag}>\n`;
-                }
+  return React.createElement(
+    "div",
+    { className: "max-w-2xl mx-auto p-4" },
+    React.createElement("h1", { className: "text-2xl font-bold mb-4" }, "HTML Preserving Translator"),
+    React.createElement("textarea", {
+      value: inputText,
+      onChange: (e) => setInputText(e.target.value),
+      placeholder: "Paste your text or HTML here...",
+      className: "w-full p-2 border rounded mb-4",
+      rows: 6,
+    }),
+    React.createElement(
+      "div",
+      { className: "flex gap-4 mb-4" },
+      React.createElement(
+        "select",
+        {
+          value: targetLang,
+          onChange: (e) => setTargetLang(e.target.value),
+          className: "p-2 border rounded",
+        },
+        languages.map((lang) => React.createElement("option", { key: lang.code, value: lang.code }, lang.name)),
+      ),
+      React.createElement(
+        "button",
+        {
+          onClick: handleTranslate,
+          className: "bg-blue-500 text-white px-4 py-2 rounded",
+        },
+        "Translate",
+      ),
+    ),
+    React.createElement(
+      "div",
+      { className: "border p-4 rounded-md bg-white" },
+      React.createElement("h2", { className: "text-xl font-semibold mb-2" }, "Translated Content:"),
+      React.createElement("div", {
+        className: "translated-content",
+        dangerouslySetInnerHTML: { __html: translatedHtml },
+      }),
+    ),
+  )
+}
 
-                translatedHtml.textContent = htmlOutput;
-                outputContainer.style.display = 'block';
-            } catch (error) {
-                console.error('Error translating text:', error);
-                alert('Failed to translate the text. Please try again.');
-            }
-        });
+ReactDOM.render(React.createElement(Translator), document.getElementById("root"))
 
-        function detectTag(line) {
-            if (line.startsWith('# ')) return 'h1';
-            if (line.startsWith('## ')) return 'h2';
-            if (line.startsWith('### ')) return 'h3';
-            return 'p'; // Default to paragraph
-        }
-
-        async function translateText(text, targetLang) {
-            const response = await fetch('https://translation.googleapis.com/language/translate/v2', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer YOUR_API_KEY_HERE' // Replace with your free Google API key
-                },
-                body: JSON.stringify({
-                    q: text,
-                    target: targetLang,
-                    format: 'text'
-                })
-            });
-
-            const data = await response.json();
-            if (data.error) {
-                throw new Error(data.error.message);
-            }
-            return data.data.translations[0].translatedText;
-        }
-    </script>
+</script>
 </body>
 </html>
+
