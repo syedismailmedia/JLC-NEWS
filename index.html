@@ -206,96 +206,75 @@
         .copy-keywords-button:hover {
             background-color: #0056b3;
         }
+    /* Footer */
+    .footer {
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100 %;
+        position: relative; /* Ensure it adjusts naturally based on content */
+        bottom: 0;
+    }
 
-        /* Footer */
+    .footer .left {
+        font-size: 14px;
+        flex: 1;
+        text-align: left;
+    }
+
+    .footer .right {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        gap: 15px;
+        flex-wrap: wrap;
+        text-align: right;
+    }
+
+    .footer .right a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .footer .right a:hover {
+        text-decoration: underline;
+    }
+
+    /* Ensure the footer stays at the bottom of the page */
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1; /* Push the footer down */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
         .footer {
-            background-color: #007BFF;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .footer .left {
-            font-size: 14px;
-        }
-
-        .footer .right {
-            display: flex;
-            gap: 15px;
-        }
-
-        .footer .right a {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .footer .right a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header nav {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            .categories {
-                flex-wrap: wrap;
-                gap: 10px;
-            }
-
-            .tool-container textarea {
-                height: 150px;
-            }
-
-            .footer {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-
-            .footer .right {
-                flex-direction: column;
-            }
-            p {
-                text-align: center;
-                font-size: 1rem;
-                margin-top: 20px;
-            }
-        }
-
-        /* Container to center the section */
-        .share-container {
-            display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 20px;
         }
 
-        /* Flexbox for share icons */
-        .share-icons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
+        .footer .right {
+            flex-direction: column;
+            align-items: center;
         }
 
-        .share-icons a {
-            color: #333;
-            font-size: 24px;
-            text-decoration: none;
-             padding: 0 5px;
+        .footer .left {
+            text-align: center;
         }
-
-        .share-icons a:hover {
-            color: #007BFF;
-        }
+    }
     </style>
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11525935043"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11525935043'); </script>
 <!-- Event snippet for Page view conversion page --> <script> gtag('event', 'conversion', {'send_to': 'AW-11525935043/y2SxCPHExoMaEMOf__cq'}); </script>
