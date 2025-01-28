@@ -287,7 +287,6 @@
 .dropdown-menu-container {
   display: flex;
   gap: 1rem;
-  align-items: center;
 }
 
 /* Dropdown Button Styling */
@@ -298,13 +297,12 @@
 .dropdown-btn {
   background-color: #007BFF;
   color: white;
-  padding: 10px 20px;
+  padding: 10px 15px;
   font-size: 16px;
   border: none;
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
-  font-family: Arial, sans-serif;
 }
 
 .dropdown-btn:hover {
@@ -316,21 +314,20 @@
   display: none;
   position: absolute;
   background-color: white;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   min-width: 200px;
-  z-index: 10;
-  margin-top: 8px;
+  z-index: 1;
+  margin-top: 5px;
 }
 
 .dropdown-content a {
   display: block;
-  padding: 12px 15px;
-  color: #333;
+  padding: 10px;
+  color: black;
   text-decoration: none;
   transition: background-color 0.2s ease;
-  border-bottom: 1px solid #eaeaea;
-  font-family: Arial, sans-serif;
+  border-bottom: 1px solid #f0f0f0;
 }
 
 .dropdown-content a:last-child {
@@ -338,12 +335,7 @@
 }
 
 .dropdown-content a:hover {
-  background-color: #f1f1f1;
-}
-
-/* Show Dropdown on Hover */
-.dropdown:hover .dropdown-content {
-  display: block;
+  background-color: #f7f7f7;
 }
 
 /* Responsive Design */
@@ -351,17 +343,13 @@
   .dropdown-menu-container {
     flex-direction: column;
     gap: 0.5rem;
-    align-items: flex-start;
   }
 
   .dropdown-btn {
     width: 100%;
   }
-
-  .dropdown-content {
-    min-width: 100%;
-  }
 }
+</style>
     </style>
     <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11525935043"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11525935043'); </script>
 <!-- Event snippet for Page view conversion page --> <script> gtag('event', 'conversion', {'send_to': 'AW-11525935043/y2SxCPHExoMaEMOf__cq'}); </script>
@@ -384,7 +372,7 @@
         <div class="dropdown-menu-container">
   <!-- Sitemap URL Extractor Dropdown -->
   <div class="dropdown">
-    <button class="dropdown-btn">Tools and Blog</button>
+    <button class="dropdown-btn" onclick="toggleDropdown(this)">Tools and Blog</button>
     <div class="dropdown-content">
       <a href="https://syedismailmedia.github.io/JLC-NEWS/">Sitemap Url Extractor</a>
          <a href="">Keywords Url Generator</a>
@@ -538,6 +526,31 @@
                 <a href="https://www.linkedin.com/shareArticle?url=https://keywordsfromurls.com" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://wa.me/?text=Check%20out%20this%20awesome%20tool%20for%20extracting%20keywords%20from%20URLs:%20https://keywordsfromurls.com" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
+            <script>
+  function toggleDropdown(event) {
+    const dropdown = event.target.nextElementSibling;
+    const isVisible = dropdown.style.display === 'block';
+
+    // Close all dropdowns first
+    document.querySelectorAll('.dropdown-content').forEach((content) => {
+      content.style.display = 'none';
+    });
+
+    // Toggle the clicked dropdown
+    if (!isVisible) {
+      dropdown.style.display = 'block';
+    }
+  }
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown')) {
+      document.querySelectorAll('.dropdown-content').forEach((content) => {
+        content.style.display = 'none';
+      });
+    }
+  });
+
    <!-- Footer -->
     <footer class="footer"><div class="left">&copy; 2025 Keywords From Urls | <a href="//www.dmca.com/Protection/Status.aspx?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f" title="DMCA.com Protection Status" class="dmca-badge"> 
 <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f"  alt="DMCA.com Protection Status" /></a>
