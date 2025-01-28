@@ -283,6 +283,33 @@
     text-align: center; /* Align text if needed */
 }
 
+/* Dropdown Menu Container */
+.dropdown-menu-container {
+  display: flex;
+  flex-direction: column; /* Ensure dropdowns are stacked vertically */
+  gap: 1rem; /* Add space between dropdowns */
+  align-items: flex-start; /* Align dropdowns to the left */
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensure the button takes full width in responsive mode */
+  text-align: left;
+}
+
+.dropdown-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Dropdown Content */
 .dropdown-content {
   display: none;
   position: absolute;
@@ -292,31 +319,46 @@
   min-width: 200px;
   z-index: 1;
   margin-top: 5px;
-
-  /* Prevent dropdown from going off the screen */
-  right: 0;
-  transform-origin: top right;
+  right: 0; /* Align to the right */
   max-width: calc(100vw - 10px); /* Ensure it stays within the screen */
   overflow-wrap: break-word;
   white-space: normal;
 }
 
-/* Responsive adjustments for smaller screens */
+.dropdown-content a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f7f7f7;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .dropdown-content {
-    position: static; /* Allow it to adjust naturally within the layout */
-    margin-top: 0;
-    width: 100%; /* Full width for smaller screens */
-    max-width: none; /* No restriction on width */
-    box-shadow: none; /* Optional: Remove shadows for a flat look */
-    border-radius: 0; /* Optional: Remove border-radius for consistency */
+  .dropdown-menu-container {
+    gap: 1rem;
+    align-items: stretch; /* Buttons and dropdowns fill the width */
   }
 
-  .dropdown-content a {
-    padding: 12px 15px;
-    text-align: left;
-    display: block; /* Ensure links stack vertically */
-    font-size: 16px; /* Adjust font size for readability on smaller screens */
+  .dropdown-btn {
+    width: 100%; /* Full width buttons on small screens */
+  }
+
+  .dropdown-content {
+    position: static; /* Position relative to the button */
+    margin-top: 0;
+    width: 100%; /* Full width dropdown on small screens */
+    box-shadow: none; /* Optional: remove shadow for flat design */
+    border-radius: 0; /* Optional: remove rounded corners */
   }
 }
 </style>
@@ -497,29 +539,29 @@
                 <a href="https://wa.me/?text=Check%20out%20this%20awesome%20tool%20for%20extracting%20keywords%20from%20URLs:%20https://keywordsfromurls.com" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
             <script>
-  function toggleDropdown(event) {
-    const dropdown = event.target.nextElementSibling;
-    const isVisible = dropdown.style.display === 'block';
+function toggleDropdown(event) {
+  const dropdown = event.target.nextElementSibling;
+  const isVisible = dropdown.style.display === 'block';
 
-    // Close all dropdowns first
+  // Close all other dropdowns
+  document.querySelectorAll('.dropdown-content').forEach((content) => {
+    content.style.display = 'none';
+  });
+
+  // Toggle the clicked dropdown
+  if (!isVisible) {
+    dropdown.style.display = 'block';
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dropdown')) {
     document.querySelectorAll('.dropdown-content').forEach((content) => {
       content.style.display = 'none';
     });
-
-    // Toggle the clicked dropdown
-    if (!isVisible) {
-      dropdown.style.display = 'block';
-    }
   }
-
-  // Close dropdowns when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.dropdown')) {
-      document.querySelectorAll('.dropdown-content').forEach((content) => {
-        content.style.display = 'none';
-      });
-    }
-  });
+});
             </script>
    <!-- Footer -->
     <footer class="footer"><div class="left">&copy; 2025 Keywords From Urls | <a href="//www.dmca.com/Protection/Status.aspx?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f" title="DMCA.com Protection Status" class="dmca-badge"> 
