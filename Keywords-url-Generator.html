@@ -359,6 +359,17 @@
             .categories {
                 gap: 5px;
             }
+.parent-container {
+  text-align: center; /* Centers child elements horizontally */
+}
+
+.share-container {
+  display: inline-block; /* Ensures it's centered in text-align */
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 
 </style>
     </style>
@@ -482,8 +493,9 @@
         }
     </script>
     </script>
-        <div class="share-container">
-            <p>Share this tool:</p>
+<div class="parent-container">
+  <div class="share-container">            
+      <p>Share this tool:</p>
             <div class="share-icons">
                 <a href="https://twitter.com/share?url=https://keywordsfromurls.com" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.facebook.com/sharer/sharer.php?u=https://keywordsfromurls.com" target="_blank"><i class="fab fa-facebook"></i></a>
