@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extract Bulk keywords from Bulk URLs [sitemap] in one click Explore a variety of tools designed to simplify blogging tasks and save time for bloggers.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="canonical" href="https://keywordsfromurls.com/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+ <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+ <title>Sitemap url extractor in one click</title>
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+
+     /* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.header nav a:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header nav {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .header nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo {
+        font-size: 20px;
+    }
+
+    .header nav a {
+        font-size: 14px;
+        padding: 10px 5px;
+    }
+}
+
+
+        /* Main Content */
+        .main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+        }
+
+        .categories button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .categories button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            textarea {
+                height: 150px;
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+        }
+
+        .keyword-list {
+            text-align: center;
+            margin-top: 20px;
+            padding: 13px;
+            border: 2px solid #ddd;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .copy-keywords-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-keywords-button:hover {
+            background-color: #0056b3;
+        }
+    /* Footer */
+    .footer {
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100 %;
+        position: relative; /* Ensure it adjusts naturally based on content */
+        bottom: 0;
+    }
+
+    .footer .left {
+        font-size: 14px;
+        flex: 1;
+        text-align: left;
+    }
+
+    .footer .right {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        gap: 15px;
+        flex-wrap: wrap;
+        text-align: right;
+    }
+
+    .footer .right a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .footer .right a:hover {
+        text-decoration: underline;
+    }
+
+    /* Ensure the footer stays at the bottom of the page */
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1; /* Push the footer down */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .footer {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer .right {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer .left {
+            text-align: center;
+        }
+    }
+       .share-icons {
+    display: inline-flex; /* Inline layout for the icons */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    gap: 10px; /* Space between icons */
+    text-align: center; /* Align text if needed */
+}
+
+/* Dropdown Menu Container */
+.dropdown-menu-container {
+  display: flex;
+  flex-direction: column; /* Ensure dropdowns are stacked vertically */
+  gap: 1rem; /* Add space between dropdowns */
+  align-items: flex-start; /* Align dropdowns to the left */
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensure the button takes full width in responsive mode */
+  text-align: left;
+}
+
+.dropdown-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  min-width: 200px;
+  z-index: 1;
+  margin-top: 5px;
+  right: 0; /* Align to the right */
+  max-width: calc(100vw - 10px); /* Ensure it stays within the screen */
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f7f7f7;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu-container {
+    gap: 1rem;
+    align-items: stretch; /* Buttons and dropdowns fill the width */
+  }
+
+  .dropdown-btn {
+    width: 100%; /* Full width buttons on small screens */
+  }
+
+  .dropdown-content {
+    position: static; /* Position relative to the button */
+    margin-top: 0;
+    width: 100%; /* Full width dropdown on small screens */
+    box-shadow: none; /* Optional: remove shadow for flat design */
+    border-radius: 0; /* Optional: remove rounded corners */
+  }
+}
+    .keywordParserSection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .keywordParserTextarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .keywordParserButton {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .keywordParserButton:hover {
+        background: #0056b3;
+    }
+
+    @media (max-width: 768px) {
+        .keywordParserSection {
+            width: 90%;
+        }
+    }
+
+</style>
+    </style>
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11525935043"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11525935043'); </script>
+<!-- Event snippet for Page view conversion page --> <script> gtag('event', 'conversion', {'send_to': 'AW-11525935043/y2SxCPHExoMaEMOf__cq'}); </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2996839415438815"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+   
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Keywords From Urls</div>
+        <nav>
+            <a href="https://keywordsfromurls.com/">Home</a>
+            <a href="chrome-extension-for-keyword-extraction-from-urls.html">Chrome Extention</a>
+              <a href="about-us.html" target="_blank">About Us</a>
+            <a href="contact-us.html" target="_blank">Contact Us</a>
+            </nav>
+        <div class="dropdown-menu-container">
+  <!-- Sitemap URL Extractor Dropdown -->
+  <div class="dropdown">
+    <button class="dropdown-btn" onclick="toggleDropdown(event)">Tools and Blog</button>
+    <div class="dropdown-content">
+      <a href="Sitemap-url-extractor.html">Sitemap Url Extractor</a>
+         <a href="Keywords-url-Generator.html">Keywords Url Generator</a>
+         <a href="Url-encoder-decoder-tool.html">URl Encoder/Decoder</a>
+        <a href="url-parser-onliner.html"> Url Parser</a>                           
+      <a href="">Blog</a>
+    </div>
+  </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="categories">
+            <a href="https://keywordsfromurls.com" target="_blank">
+        <button>Keyword Exctractor</button>
+    </a>
+    <a href="keywords-grouping.html" target="_blank">
+        <button>Keyword Grouping</button>
+    </a>
+    <a href="Slug-Generator.html" target="_blank">
+        <button>Slug Generator</button>
+    </a>
+    <a href="Keyword-Density-And-Wordcount-Tool.html" target="_blank">
+        <button>Keyword Density</button>
+    </a>
+</div>
+<section class="keywordParserSection">
+    <h2 class="keywordParserTitle">Keyword Parser Tool</h2>
+    <label for="textInput" class="keywordParserLabel">Enter Text:</label>
+    <textarea id="textInput" class="keywordParserTextarea" rows="5" placeholder="Enter text here..."></textarea>
+    <button onclick="parseKeywords()" class="keywordParserButton">Parse</button>
+    
+    <div id="keywordResults" class="keywordParserResults"></div>
+</section>
+
+<script>
+    function parseKeywords() {
+        let text = document.getElementById("textInput").value.toLowerCase();
+        let stopWords = ["the", "is", "and", "of", "to", "in", "that", "it", "on", "for", "with"];
+        let words = text.match(/\b[a-zA-Z]{3,}\b/g) || [];
+        let filteredWords = words.filter(word => !stopWords.includes(word));
+
+        let wordCount = {};
+        filteredWords.forEach(word => wordCount[word] = (wordCount[word] || 0) + 1);
+
+        let sortedKeywords = Object.entries(wordCount).sort((a, b) => b[1] - a[1]);
+        document.getElementById("keywordResults").innerHTML = sortedKeywords.map(w => `<p><strong>${w[0]}</strong>: ${w[1]}</p>`).join(" ") || "<p class='keywordParserError'>No keywords found</p>";
+    }
+</script>
+
+
+<script>
+        document.getElementById('urlInput').addEventListener('paste', function (event) {
+            event.preventDefault();
+            const clipboardData = event.clipboardData || window.clipboardData;
+            const pastedData = clipboardData.getData('Text');
+
+            const urlPattern = /(https?:\/\/[^\s]+)/gi;
+            const urls = pastedData.match(urlPattern);
+
+            if (urls) {
+                const currentUrls = event.target.value.match(urlPattern) || [];
+                if (currentUrls.length + urls.length > 500) {
+                    alert('Only 500 URLs are allowed.');
+                    return;
+                }
+                event.target.value += urls.join('\n') + '\n';
+            }
+        });
+
+        document.getElementById('copyButton').addEventListener('click', function () {
+            const textarea = document.getElementById('urlInput');
+            const urlPattern = /(https?:\/\/[^\s]+)/gi;
+            const validUrls = textarea.value.match(urlPattern);
+
+            if (validUrls) {
+                const tempTextarea = document.createElement('textarea');
+                tempTextarea.value = validUrls.join('\n');
+                document.body.appendChild(tempTextarea);
+                tempTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempTextarea);
+                this.innerHTML = 'Copied';
+                setTimeout(() => {
+                    this.innerHTML = 'Copy Urls';
+                }, 4000);
+            } else {
+                alert('No valid URLs to copy!');
+            }
+        });
+
+        document.getElementById('getKeywordsButton').addEventListener('click', function () {
+            const textarea = document.getElementById('urlInput');
+            const urlPattern = /(https?:\/\/[^\s]+)/gi;
+            const urls = textarea.value.match(urlPattern);
+            const keywordListDiv = document.getElementById('keywordList');
+
+            keywordListDiv.innerHTML = ''; // Clear previous keyword list
+
+            if (urls && urls.length > 0) {
+                const limitedUrls = urls.slice(0, 500);
+                const keywords = limitedUrls.map(url => extractKeywordFromUrl(url));
+
+                this.innerHTML = 'Go Below';
+                setTimeout(() => {
+                    this.innerHTML = 'Copy Keywords';
+                }, 4000);
+
+                keywordListDiv.innerHTML = '<strong>Keywords List</strong><ul>' +
+                    keywords.map(keyword => `<li>${keyword}</li>`).join('') +
+                    '</ul>';
+
+                const copyKeywordsButton = document.createElement('button');
+                copyKeywordsButton.id = 'copyKeywordsButton';
+                copyKeywordsButton.className = 'copy-keywords-button';
+                copyKeywordsButton.textContent = 'Copy Keywords';
+                keywordListDiv.appendChild(copyKeywordsButton);
+
+                copyKeywordsButton.addEventListener('click', function () {
+                    const keywordItems = keywordListDiv.querySelectorAll('li');
+                    const keywords = Array.from(keywordItems).map(item => item.textContent);
+
+                    if (keywords.length > 0) {
+                        const tempTextarea = document.createElement('textarea');
+                        tempTextarea.value = keywords.join('\n');
+                        document.body.appendChild(tempTextarea);
+                        tempTextarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempTextarea);
+                        this.innerHTML = 'Copied';
+                        setTimeout(() => {
+                            this.innerHTML = 'Copy Keywords';
+                        }, 4000);
+                    } else {
+                        alert('No keywords to copy!');
+                    }
+                });
+            } else {
+                alert('No URLs provided or limit exceeded!');
+            }
+        });
+
+        function extractKeywordFromUrl(url) {
+            try {
+                const urlObj = new URL(url);
+                const pathname = urlObj.pathname;
+                const segments = pathname.split('/').filter(part => part && !part.startsWith('.'));
+
+                if (segments.length > 0) {
+                    const lastSegment = segments[segments.length - 1];
+                    return lastSegment.replace(/[-]/g, ' ').replace(/\.[^/.]+$/, '');
+                } else {
+                    return urlObj.hostname;
+                }
+            } catch (error) {
+                return '(Invalid URL)';
+            }
+        }
+    </script>
+        <div class="share-container style="display: flex; justify-content: center; align-items: center; margin: auto; height: 100vh;"">
+            <p>Share this tool:</p>
+            <div class="share-icons">
+                <a href="https://twitter.com/share?url=https://keywordsfromurls.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://keywordsfromurls.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/shareArticle?url=https://keywordsfromurls.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://wa.me/?text=Check%20out%20this%20awesome%20tool%20for%20extracting%20keywords%20from%20URLs:%20https://keywordsfromurls.com" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <script>
+function toggleDropdown(event) {
+  const dropdown = event.target.nextElementSibling;
+  const isVisible = dropdown.style.display === 'block';
+
+  // Close all other dropdowns
+  document.querySelectorAll('.dropdown-content').forEach((content) => {
+    content.style.display = 'none';
+  });
+
+  // Toggle the clicked dropdown
+  if (!isVisible) {
+    dropdown.style.display = 'block';
+  }
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dropdown')) {
+    document.querySelectorAll('.dropdown-content').forEach((content) => {
+      content.style.display = 'none';
+    });
+  }
+});
+            </script>
