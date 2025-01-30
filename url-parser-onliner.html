@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Extract Bulk keywords from Bulk URLs [sitemap] in one click Explore a variety of tools designed to simplify blogging tasks and save time for bloggers.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="canonical" href="https://keywordsfromurls.com/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+ <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+ <title>Sitemap url extractor in one click</title>
+
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f9;
+        }
+
+     /* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #007BFF;
+    color: white;
+}
+
+.header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header nav {
+    display: flex;
+    gap: 15px;
+}
+
+.header nav a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.header nav a:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header nav {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .header nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo {
+        font-size: 20px;
+    }
+
+    .header nav a {
+        font-size: 14px;
+        padding: 10px 5px;
+    }
+}
+
+
+        /* Main Content */
+        .main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .categories {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+        }
+
+        .categories button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .categories button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 10px;
+            font-size: 16px;
+            box-sizing: border-box;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            textarea {
+                height: 150px;
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+        }
+
+        .keyword-list {
+            text-align: center;
+            margin-top: 20px;
+            padding: 13px;
+            border: 2px solid #ddd;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .copy-keywords-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .copy-keywords-button:hover {
+            background-color: #0056b3;
+        }
+    /* Footer */
+    .footer {
+        background-color: #007BFF;
+        color: white;
+        padding: 15px 30px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100 %;
+        position: relative; /* Ensure it adjusts naturally based on content */
+        bottom: 0;
+    }
+
+    .footer .left {
+        font-size: 14px;
+        flex: 1;
+        text-align: left;
+    }
+
+    .footer .right {
+        display: flex;
+        flex: 1;
+        justify-content: flex-end;
+        gap: 15px;
+        flex-wrap: wrap;
+        text-align: right;
+    }
+
+    .footer .right a {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .footer .right a:hover {
+        text-decoration: underline;
+    }
+
+    /* Ensure the footer stays at the bottom of the page */
+    html, body {
+        height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1; /* Push the footer down */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        .footer {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .footer .right {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer .left {
+            text-align: center;
+        }
+    }
+       .share-icons {
+    display: inline-flex; /* Inline layout for the icons */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    gap: 10px; /* Space between icons */
+    text-align: center; /* Align text if needed */
+}
+
+/* Dropdown Menu Container */
+.dropdown-menu-container {
+  display: flex;
+  flex-direction: column; /* Ensure dropdowns are stacked vertically */
+  gap: 1rem; /* Add space between dropdowns */
+  align-items: flex-start; /* Align dropdowns to the left */
+}
+
+/* Dropdown Button */
+.dropdown-btn {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  width: 100%; /* Ensure the button takes full width in responsive mode */
+  text-align: left;
+}
+
+.dropdown-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Dropdown Content */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  min-width: 200px;
+  z-index: 1;
+  margin-top: 5px;
+  right: 0; /* Align to the right */
+  max-width: calc(100vw - 10px); /* Ensure it stays within the screen */
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.dropdown-content a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown-content a:last-child {
+  border-bottom: none;
+}
+
+.dropdown-content a:hover {
+  background-color: #f7f7f7;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .dropdown-menu-container {
+    gap: 1rem;
+    align-items: stretch; /* Buttons and dropdowns fill the width */
+  }
+
+  .dropdown-btn {
+    width: 100%; /* Full width buttons on small screens */
+  }
+
+  .dropdown-content {
+    position: static; /* Position relative to the button */
+    margin-top: 0;
+    width: 100%; /* Full width dropdown on small screens */
+    box-shadow: none; /* Optional: remove shadow for flat design */
+    border-radius: 0; /* Optional: remove rounded corners */
+  }
+}
+</style>
+    </style>
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11525935043"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-11525935043'); </script>
+<!-- Event snippet for Page view conversion page --> <script> gtag('event', 'conversion', {'send_to': 'AW-11525935043/y2SxCPHExoMaEMOf__cq'}); </script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2996839415438815"
+     crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+   
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">Keywords From Urls</div>
+        <nav>
+            <a href="https://keywordsfromurls.com/">Home</a>
+            <a href="chrome-extension-for-keyword-extraction-from-urls.html">Chrome Extention</a>
+              <a href="about-us.html" target="_blank">About Us</a>
+            <a href="contact-us.html" target="_blank">Contact Us</a>
+            </nav>
+        <div class="dropdown-menu-container">
+  <!-- Sitemap URL Extractor Dropdown -->
+  <div class="dropdown">
+    <button class="dropdown-btn" onclick="toggleDropdown(event)">Tools and Blog</button>
+    <div class="dropdown-content">
+      <a href="Sitemap-url-extractor.html">Sitemap Url Extractor</a>
+         <a href="Keywords-url-Generator.html">Keywords Url Generator</a>
+         <a href="Url-encoder-decoder-tool.html">URl Encoder/Decoder</a>
+        <a href=""> Url Parser</a>                           
+      <a href="">Blog</a>
+    </div>
+  </div>
+    </header>
+<section class="urlParserSection">
+    <h2 class="urlParserTitle">URL Parser Tool</h2>
+    <label for="urlInput" class="urlParserLabel">Enter URL:</label>
+    <input type="text" id="urlInput" class="urlParserInput" placeholder="https://example.com/path?query=123">
+    <button onclick="parseURL()" class="urlParserButton">Parse</button>
+    
+    <div id="urlResults" class="urlParserResults"></div>
+</section>
+
+<script>
+    function parseURL() {
+        let url = document.getElementById("urlInput").value;
+        try {
+            let urlObj = new URL(url);
+            let results = `
+                <p><strong>Scheme:</strong> ${urlObj.protocol.replace(':', '')}</p>
+                <p><strong>Authority:</strong> ${urlObj.host}</p>
+                <p><strong>Host:</strong> ${urlObj.hostname}</p>
+                <p><strong>Subdomain:</strong> ${urlObj.hostname.split('.').length > 2 ? urlObj.hostname.split('.')[0] : 'None'}</p>
+                <p><strong>Domain:</strong> ${urlObj.hostname.split('.').slice(-2).join('.')}</p>
+                <p><strong>TLD:</strong> ${urlObj.hostname.split('.').pop()}</p>
+                <p><strong>Path:</strong> ${urlObj.pathname}</p>
+                <p><strong>Query String:</strong> ${urlObj.search}</p>
+                <p><strong>File Name:</strong> ${urlObj.pathname.split('/').pop()}</p>
+                <p><strong>File Extension:</strong> ${urlObj.pathname.split('.').pop()}</p>
+            `;
+            document.getElementById("urlResults").innerHTML = results;
+        } catch (e) {
+            document.getElementById("urlResults").innerHTML = "<p class='urlParserError'>Invalid URL</p>";
+        }
+    }
+</script>
+   <!-- Footer -->
+    <footer class="footer"><div class="left">&copy; 2025 Keywords From Urls | <a href="//www.dmca.com/Protection/Status.aspx?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f" title="DMCA.com Protection Status" class="dmca-badge"> 
+<img src ="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f"  alt="DMCA.com Protection Status" /></a>
+<script src="https://images.dmca.com/Badges/DMCABadgeHelper.min.js"> </script></div>
+        <div class="right">
+            <a href="about-us.html" target="_blank">About Us</a>
+            <a href="contact-us.html" target="_blank">Contact Us</a>
+            <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+            <a href="Disclaimer.html" target="_blank">Disclaimer</a>
+            <a href="Terms&condition.html" target="_blank">Terms&condition</a>
+        </div>
+    </footer>
+    
+</body>
+
+</html>
