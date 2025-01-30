@@ -539,31 +539,28 @@
                 <a href="https://www.linkedin.com/shareArticle?url=https://keywordsfromurls.com" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://wa.me/?text=Check%20out%20this%20awesome%20tool%20for%20extracting%20keywords%20from%20URLs:%20https://keywordsfromurls.com" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <script>
 function toggleDropdown(event) {
-  const dropdown = event.target.nextElementSibling;
-  const isVisible = dropdown.style.display === 'block';
+  event.stopPropagation(); // Prevents the click from closing the dropdown immediately
+  const dropdown = event.currentTarget.nextElementSibling;
+  const isVisible = dropdown.classList.contains('dropdown-visible');
 
-  // Close all other dropdowns
+  // Close all dropdowns first
   document.querySelectorAll('.dropdown-content').forEach((content) => {
-    content.style.display = 'none';
+    content.classList.remove('dropdown-visible');
   });
 
-  // Toggle the clicked dropdown
+  // Toggle only the clicked one
   if (!isVisible) {
-    dropdown.style.display = 'block';
+    dropdown.classList.add('dropdown-visible');
   }
 }
 
 // Close dropdowns when clicking outside
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.dropdown')) {
-    document.querySelectorAll('.dropdown-content').forEach((content) => {
-      content.style.display = 'none';
-    });
-  }
+document.addEventListener('click', () => {
+  document.querySelectorAll('.dropdown-content').forEach((content) => {
+    content.classList.remove('dropdown-visible');
+  });
 });
-            </script>
    <!-- Footer -->
     <footer class="footer"><div class="left">&copy; 2025 Keywords From Urls | <a href="//www.dmca.com/Protection/Status.aspx?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f" title="DMCA.com Protection Status" class="dmca-badge"> 
 <img src ="https://images.dmca.com/Badges/dmca_protected_sml_120n.png?ID=6cf02a5f-5f1e-483c-88f4-70ff117b638f"  alt="DMCA.com Protection Status" /></a>
