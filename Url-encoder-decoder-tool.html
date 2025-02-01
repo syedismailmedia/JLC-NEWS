@@ -417,17 +417,15 @@
             position: relative;
         }
 
-        .url-tool-copy-button {
-            background-color: #28a745;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 14px;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+      .url-tool-copy-button {
+    background-color: #28a745;
+    font-size: 14px;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: block;  /* Makes it a block element */
+    margin: 10px auto;  /* Centers it below the output box */
+}
 
         .url-tool-copy-button:hover {
             background-color: #218838;
@@ -490,10 +488,11 @@
             <button class="url-tool-button" onclick="encodeText()">Encode</button>
             <button class="url-tool-button" onclick="decodeText()">Decode</button>
         </div>
-        <div class="url-tool-output-box">
-            <span id="outputText">Result will appear here...</span>
-            <button class="url-tool-copy-button" onclick="copyToClipboard()">Copy</button>
-        </div>
+       <div class="url-tool-output-box">
+    <span id="outputText">Result will appear here...</span>
+</div>
+<button class="url-tool-copy-button" onclick="copyToClipboard()">Copy</button>
+
     </div>
     <script>
         function encodeText() {
